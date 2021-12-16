@@ -13,14 +13,18 @@ class Solution:
                        (if we move the bigger one, it will always get a lower amount.)
             4. Store and return the maximum value.
         """
-        maximum = 0
+        local_maximum = global_maximum = 0
         left = 0
         right = len(height) - 1
         
         while left < right:
-            maximum = max(maximum, min(height[left],height[right]) * (right - left))
-            if height[left] < height[right]:
+            lower_bar = min(height[left], height[right])
+            width = right - left
+            local_maximum = lower_bar * width
+            global_maximum = max(global_maximum, local_maximum)
+            if height[right] > height[left]:
                 left += 1
             else:
                 right -= 1
-        return maximum
+        
+        return global_maximum
