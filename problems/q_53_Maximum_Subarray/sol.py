@@ -1,12 +1,10 @@
 class Solution:
-    def maxSubArray(self, nums: int) -> int:
-        local_maximum = 0
-        global_maximum = nums[0]
+    def maxSubArray(self, nums: List[int]) -> int:
+        global_maximum = local_maximum = nums[0]
         
-        for i in nums:                                  
-            local_maximum = max(i, i + local_maximum)   # Kadane's Algorithm O(n) 
-            if local_maximum > global_maximum:          # vars (local_maximum, global_maximum, nums)  
-                global_maximum = local_maximum
+        for i in range(1, len(nums)):
+            local_maximum = max(local_maximum + nums[i], nums[i])
+            global_maximum = max(local_maximum, global_maximum)
         
         return global_maximum
 
